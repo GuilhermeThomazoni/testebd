@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <header>
+    <h1>Qual agente do VALORANT você seria?</h1>
+</header> 
+
+    <form id="meuFormulario">
+        <label for="pergunta1">Pergunta 1: Você prefere calor ou frio?</label>
+        <select id="pergunta1" name="pergunta1">
+            <option value="calor">Calor</option>
+            <option value="frio">Frio</option>
+        </select>
+
+        <br> <br> 
+
+        <label for="pergunta2">Pergunta 2: Você é introvertido ou extrovertido?</label>
+        <select id="pergunta2" name="pergunta2">
+            <option value="intro">Introvertido</option>
+            <option value="extro">Extrovertido</option>
+        </select>
+
+        <br> <br>
+
+        <label for="pergunta3">Pergunta 3: Você age mais por razão ou emoção?</label>
+        <select id="pergunta3" name="pergunta3">
+            <option value="razão">Razão</option>
+            <option value="emoção">Emoção</option>
+        </select>
+
+        <br> <br>
+
+        <label for="pergunta4">Pergunta 4: Prefere doce ou salgado?</label>
+        <select id="pergunta4" name="pergunta4">
+            <option value="doce">Doce</option>
+            <option value="salgado">Salgado</option>
+        </select>
+
+        <!-- Adicione mais perguntas aqui, seguindo o mesmo padrão -->
+        
+        <br> <br>
+            <button type="submit">Ver resultado</button>
+    </form>
+
+    <!-- Adicione a biblioteca do Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+
+    <script>
+        // Configurar as credenciais do Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyBHebmve2rSfv8Kk-nTBJqk1DiiacZquKc",
+            authDomain: "testezinho-85556.firebaseapp.com",
+            projectId: "testezinho-85556",
+        };
+        // Inicializar o Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Referenciar o Firestore
+        var db = firebase.firestore();
+
+        // Capturar o formulário e salvar dados no Firestore ao enviá-lo
+        document.getElementById("meuFormulario").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var nome = document.getElementById("nome").value;
+            var idade = document.getElementById("idade").value;
+
+            // Salvar os dados na coleção "usuarios"
+            db.collection("usuarios").add({
+                nome: nome,
+                idade: idade
+            })
+                .then(function (docRef) {
+                    console.log("Dados salvos com ID: ", docRef.id);
+                    alert("Dados salvos com sucesso!");
+                    // Limpar os campos do formulário após salvar os dados
+                    document.getElementById("meuFormulario").reset();
+                })
+                .catch(function (error) {
+                    console.error("Erro ao salvar dados: ", error);
+                    alert("Ocorreu um erro ao salvar os dados. Por favor, tente novamente.");
+                });
+        });
+    </script>
+     <div id="respostaCondicional" style="display: none;">
+        <h2>Resultado:</h2>
+        <p id="textoResposta"></p>
+    </div>
+</div>
+<script>
+    document.getElementById("meuFormulario").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        var resposta = document.getElementById("textoResposta");
+
+        var pergunta1 = document.getElementById("pergunta1").value;
+        var pergunta2 = document.getElementById("pergunta2").value;
+        var pergunta3 = document.getElementById("pergunta3").value;
+        var pergunta4 = document.getElementById("pergunta4").value;
+
+        // Adicione mais variáveis para as outras perguntas aqui
+
+        if (pergunta1 === "calor" && pergunta2 === "intro" && pergunta3 === "razão" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria o Cypher!";
+
+        } else if (pergunta1 === "calor" && pergunta2 === "intro" && pergunta3 === "razão" && pergunta4 === "salgado") {
+            resposta.textContent = "Você seria a Fade!";
+
+        } else if (pergunta1 === "calor" && pergunta2 === "intro" && pergunta3 === "emoção" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria o Omen!";
+
+        } else if (pergunta1 === "calor" && pergunta2 === "intro" && pergunta3 === "emoção" && pergunta4 === "salgado") {
+            resposta.textContent = "Você seria a Skye!";
+
+        } else if (pergunta1 === "calor" && pergunta2 === "extro" && pergunta3 === "razão" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria o Phoenix!";
+
+        } else if (pergunta1 === "calor" && pergunta2 === "extro" && pergunta3 === "razão" && pergunta4 === "salgado") {
+            resposta.textContent = "Você seria o Chamber!";
+
+        } else if (pergunta1 === "calor" && pergunta2 === "extro" && pergunta3 === "emoção" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria a Neon! ";
+
+        } else if (pergunta1 === "calor" && pergunta2 === "extro" && pergunta3 === "emoção" && pergunta4 === "salgado") {
+            resposta.textContent = "Você seria a Raze!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "extro" && pergunta3 === "razão" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria o Sova!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "extro" && pergunta3 === "razão" && pergunta4 === "salgado") {
+            resposta.textContent = "Você seria a Jett!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "extro" && pergunta3 === "emoção" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria a Reyna!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "extro" && pergunta3 === "emoção" && pergunta4 === "salgado") {
+            resposta.textContent = "Vocẽ seria o Yoru!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "intro" && pergunta3 === "razão" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria a Viper!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "intro" && pergunta3 === "razão" && pergunta4 === "salgado") {
+            resposta.textContent = "Você seria a Sage!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "intro" && pergunta3 === "emoção" && pergunta4 === "doce") {
+            resposta.textContent = "Você seria a Killjoy!";
+
+        } else if (pergunta1 === "frio" && pergunta2 === "intro" && pergunta3 === "emoção" && pergunta4 === "salgado") {
+            resposta.textContent = "Você seria a Astra!";
+
+        } else {
+            
+            resposta.textContent = "Suas escolhas não têm respostas condicionais definidas.";
+        }
+
+        document.getElementById("respostaCondicional").style.display = "block";
+    });
+</script>
+</script>
+</body>
+</html>
